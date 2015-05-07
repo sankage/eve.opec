@@ -1,0 +1,24 @@
+doctype html
+html
+  head
+    meta charset="utf-8"
+    title OPEC · Office of POS Electricity Consumption
+    meta name="viewport" content="width=device-width, initial-scale=1"
+    = stylesheet_link_tag    'application', media: 'all', 'data-turbolinks-track' => true
+    = csrf_meta_tags
+  body
+    header
+      h1 Office of POS Electricity Consumption
+      nav
+        ul
+          - if signed_in?
+            li = link_to "Towers", towers_path
+            li = link_to "Sign out", signout_path
+          - else
+            li = link_to "Sign in", signin_path
+    section
+      - flash.each do |name, msg|
+        = content_tag :div, msg, class: name
+      == yield
+
+    = javascript_include_tag 'application', 'data-turbolinks-track' => true

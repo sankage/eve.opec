@@ -1,3 +1,10 @@
+GIT
+  remote: git://github.com/sankage/omniauth-evesso.git
+  revision: dfaefe3e0b864acd41dd42a7995686703fab0eaa
+  specs:
+    omniauth-evesso (0.1.0)
+      omniauth-oauth2 (~> 1.3.0)
+
 GEM
   remote: https://rubygems.org/
   specs:
@@ -39,9 +46,14 @@ GEM
     arel (6.0.0)
     binding_of_caller (0.7.2)
       debug_inspector (>= 0.0.1)
+    bourbon (4.2.1)
+      sass (~> 3.4)
+      thor
     builder (3.2.2)
     byebug (4.0.5)
       columnize (= 0.9.0)
+    celluloid (0.16.0)
+      timers (~> 4.0.0)
     coffee-rails (4.1.0)
       coffee-script (>= 2.2.0)
       railties (>= 4.0.0, < 5.0)
@@ -51,10 +63,23 @@ GEM
     coffee-script-source (1.9.1.1)
     columnize (0.9.0)
     debug_inspector (0.0.2)
+    dotenv (2.0.1)
+    dotenv-rails (2.0.1)
+      dotenv (= 2.0.1)
+    eaal (0.1.16)
+      faraday (>= 0.8.4)
+      hpricot (>= 0.6)
+      memcache-client (>= 1.7.1)
     erubis (2.7.0)
     execjs (2.5.2)
+    faraday (0.9.1)
+      multipart-post (>= 1.2, < 3)
     globalid (0.3.5)
       activesupport (>= 4.1.0)
+    hashie (3.4.1)
+    high_voltage (2.3.0)
+    hitimes (1.2.2)
+    hpricot (0.8.6)
     i18n (0.7.0)
     jbuilder (2.2.13)
       activesupport (>= 3.0.0, < 5)
@@ -64,16 +89,37 @@ GEM
       railties (>= 4.2.0)
       thor (>= 0.14, < 2.0)
     json (1.8.2)
+    jwt (1.4.1)
+    libv8 (3.16.14.7)
     loofah (2.0.2)
       nokogiri (>= 1.5.9)
     mail (2.6.3)
       mime-types (>= 1.16, < 3)
+    memcache-client (1.8.5)
     mime-types (2.5)
     mini_portile (0.6.2)
     minitest (5.6.1)
     multi_json (1.11.0)
+    multi_xml (0.5.5)
+    multipart-post (2.0.0)
+    neat (1.7.1)
+      bourbon (>= 4.0)
+      sass (>= 3.3)
     nokogiri (1.6.6.2)
       mini_portile (~> 0.6.0)
+    oauth2 (1.0.0)
+      faraday (>= 0.8, < 0.10)
+      jwt (~> 1.0)
+      multi_json (~> 1.3)
+      multi_xml (~> 0.5)
+      rack (~> 1.2)
+    omniauth (1.2.2)
+      hashie (>= 1.2, < 4)
+      rack (~> 1.0)
+    omniauth-oauth2 (1.3.0)
+      oauth2 (~> 1.0)
+      omniauth (~> 1.2)
+    pg (0.18.1)
     rack (1.6.1)
     rack-test (0.6.3)
       rack (>= 1.0)
@@ -103,6 +149,7 @@ GEM
       thor (>= 0.18.1, < 2.0)
     rake (10.4.2)
     rdoc (4.2.0)
+    ref (1.0.5)
     sass (3.4.13)
     sass-rails (5.0.3)
       railties (>= 4.0.0, < 5.0)
@@ -113,6 +160,12 @@ GEM
     sdoc (0.4.1)
       json (~> 1.7, >= 1.7.7)
       rdoc (~> 4.0)
+    simple_form (3.1.0)
+      actionpack (~> 4.0)
+      activemodel (~> 4.0)
+    slim (3.0.3)
+      temple (~> 0.7.3)
+      tilt (>= 1.3.3, < 2.1)
     spring (1.3.5)
     sprockets (3.0.3)
       rack (~> 1.0)
@@ -121,9 +174,17 @@ GEM
       activesupport (>= 3.0)
       sprockets (>= 2.8, < 4.0)
     sqlite3 (1.3.10)
+    sucker_punch (1.4.0)
+      celluloid (~> 0.16.0)
+    temple (0.7.5)
+    therubyracer (0.12.2)
+      libv8 (~> 3.16.14.0)
+      ref
     thor (0.19.1)
     thread_safe (0.3.5)
     tilt (1.4.1)
+    timers (4.0.1)
+      hitimes
     turbolinks (2.5.3)
       coffee-rails
     tzinfo (1.2.2)
@@ -141,15 +202,26 @@ PLATFORMS
   ruby
 
 DEPENDENCIES
+  bourbon
   byebug
   coffee-rails (~> 4.1.0)
+  dotenv-rails
+  eaal
+  high_voltage (~> 2.3.0)
   jbuilder (~> 2.0)
   jquery-rails
+  neat
+  omniauth-evesso!
+  pg
   rails (= 4.2.1)
   sass-rails (~> 5.0)
   sdoc (~> 0.4.0)
+  simple_form
+  slim
   spring
   sqlite3
+  sucker_punch
+  therubyracer
   turbolinks
   uglifier (>= 1.3.0)
   web-console (~> 2.0)

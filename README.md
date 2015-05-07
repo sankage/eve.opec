@@ -1,1 +1,1 @@
-# POS Party's OPEC (Organization of POS Electricity Consumption)
+# OPEC (Office of POS Electricity Consumption)

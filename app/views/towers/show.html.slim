@@ -1,0 +1,45 @@
+= link_to "Back to Towers", towers_path
+
+h1 = @tower.name
+
+table
+  thead
+    tr
+      th Type
+      th Location
+      th State
+      th Strontium
+      th Fuel Blocks
+      th Hours til empty
+  tbody
+    tr class="#{@tower.state} #{(@tower.online? && @tower.hours_til_empty <= 168) ? 'one-week' : ''}"
+      td = @tower.type
+      td = @tower.moon.name
+      td = @tower.state.capitalize
+      td #{@tower.strontium} (#{@tower.reinforced_hours_til_empty} hours)
+      td = @tower.fuel_blocks
+      td = @tower.hours_til_empty
+
+h2 Pilots
+
+div.left
+  p These are all the pilots that currently live here.
+  - if @tower.pilots.empty?
+    p No pilots currently assigned here.
+  - else
+    ul.default
+      - @tower.pilots.each do |pilot|
+        li data-character-id=pilot.character_id
+          = pilot.name
+          - if signed_in_as_admin?
+            = link_to "✖", tower_pilot_path(@tower.item_id, pilot.character_id), method: :delete, data: { confirm: "Are you sure?" }
+
+div.right
+  - if signed_in_as_admin?
+    h3 Add a pilot
+    = simple_form_for [@tower, @pilot] do |f|
+      = f.input :name, input_html: { list: "pilots" }
+      datalist#pilots
+        - @pilots.each do |pilot|
+          option value=pilot.name
+      = f.button :submit, "Add Pilot"

@@ -1,0 +1,44 @@
+@import "bourbon";
+@import "base/base";
+@import "neat";
+
+header {
+  @include outer-container;
+  h1 {
+    font-size: 2em;
+  }
+}
+section {
+  @include outer-container;
+  .left {
+    @include span-columns(6);
+  }
+  .right {
+    @include span-columns(6);
+  }
+  ul.default {
+    @extend %default-ul;
+  }
+}
+
+tr {
+  &.one-week {
+    background-color: #fed8bb;
+  }
+  &.reinforced {
+    background-color: #ffdce1;
+  }
+}
+
+button{
+  &.gray {
+    background-color: #888;
+    &:hover,
+    &:focus {
+      background-color: darken(#888, 15%);
+    }
+  }
+  &.smaller {
+    font-size: 0.8em;
+  }
+}
