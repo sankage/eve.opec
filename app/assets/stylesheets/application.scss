@@ -19,6 +19,9 @@ section {
   ul.default {
     @extend %default-ul;
   }
+  h1 {
+    font-size: 1.5em;
+  }
 }
 
 tr {
