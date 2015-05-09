@@ -5,7 +5,6 @@ class SessionsController < ApplicationController
 
   def create
     auth = request.env['omniauth.auth']
-    byebug
     pilot = Pilot.find_by(character_id: auth['uid'])
     if pilot.nil?
       flash[:alert] = "You are not registered."
