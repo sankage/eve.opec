@@ -17,7 +17,7 @@ class TowersController < ApplicationController
 
   def show
     @tower = Tower.find_by(item_id: params[:id])
-    unless current_user.towers.include? @tower
+    unless signed_in_as_admin? || current_user.towers.include?(@tower)
       flash[:alert] = "You do not have access to this tower."
       redirect_to towers_path
     end
