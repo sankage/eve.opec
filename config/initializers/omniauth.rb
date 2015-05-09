@@ -1,3 +1,5 @@
 Rails.application.config.middleware.use OmniAuth::Builder do
-  provider :evesso, ENV['EVESSO_CLIENT_ID'], ENV['EVESSO_SECRET_KEY']
+  provider :evesso,
+    Rails.application.secrets.evesso_client_id,
+    Rails.application.secrets.evesso_secret_key
 end

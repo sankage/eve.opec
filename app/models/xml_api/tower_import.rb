@@ -86,7 +86,7 @@ module XmlApi
     end
 
     def api
-      EAAL::API.new(ENV["CORP_API_ID"], ENV["CORP_API_VCODE"], "corp")
+      EAAL::API.new(Rails.application.secrets.xml_api_corp_id, Rails.application.secrets.xml_api_corp_vcode, "corp")
     end
   end
 end
