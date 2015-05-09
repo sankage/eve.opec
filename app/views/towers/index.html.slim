@@ -2,8 +2,11 @@ h1 Towers
 
 - if signed_in_as_admin?
   = link_to "Import/Update", import_towers_path
-p This makes a background request to the XML API. Refresh the page in a few
-  minutes to pick up the changes.
+  p This makes a background request to the XML API. Refresh the page in a few
+    minutes to pick up the changes.
+  p The data displayed here is taken through the XML API. To make everything load
+    faster, this data is cached internally and only updated when you click the
+    "Import/Update" link above.
 
 table
   thead
@@ -26,9 +29,6 @@ table
         td = tower.fuel_blocks
         td = tower.hours_til_empty
 
-p The data displayed here is taken through the XML API. To make everything load
-  faster, this data is cached internally and only updated when you click the
-  "Import/Update" link above.
 
 p Since the data is cached, the amount of fuel blocks displayed for each tower
   is only as updated as the last API request. The <strong>Hours til
