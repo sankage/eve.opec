@@ -56,7 +56,7 @@ Rails.application.routes.draw do
 
   resources :towers, only: [:index, :show] do
     get 'import', on: :collection
-    resources :pilots, only: [:create, :destroy]
+    resources :tower_stakes, only: [:create, :destroy]
   end
 
   get '/auth/:provider/callback' => 'sessions#create'

@@ -28,17 +28,17 @@ div.left
     p No pilots currently assigned here.
   - else
     ul.default
-      - @tower.pilots.each do |pilot|
-        li data-character-id=pilot.character_id
-          = pilot.name
+      - @tower.tower_stakes.each do |stake|
+        li data-character-id=stake.pilot.character_id
+          = stake.pilot.name
           - if signed_in_as_admin?
-            = link_to "✖", tower_pilot_path(@tower.item_id, pilot.character_id), method: :delete, data: { confirm: "Are you sure?" }
+            = link_to "✖", tower_tower_stake_path(@tower.item_id, stake), method: :delete, data: { confirm: "Are you sure?" }
 
 div.right
   - if signed_in_as_admin?
     h3 Add a pilot
-    = simple_form_for [@tower, @pilot] do |f|
-      = f.input :name, input_html: { list: "pilots" }
+    = simple_form_for [@tower, @tower_stake] do |f|
+      = text_field_tag :pilot_name, nil, list: 'pilots'
       datalist#pilots
         - @pilots.each do |pilot|
           option value=pilot.name

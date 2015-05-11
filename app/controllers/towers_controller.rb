@@ -22,6 +22,6 @@ class TowersController < ApplicationController
       redirect_to towers_path
     end
     @pilots = Pilot.order(:name)
-    @pilot = Pilot.new
+    @tower_stake = TowerStake.new
   end
 end
