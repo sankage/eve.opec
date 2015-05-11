@@ -10,7 +10,7 @@ table
       th State
       th Strontium
       th Fuel Blocks
-      th Hours til empty
+      th Time til empty
   tbody
     tr class="#{@tower.state} #{(@tower.online? && @tower.hours_til_empty <= 168) ? 'one-week' : ''}"
       td = @tower.type
@@ -18,7 +18,7 @@ table
       td = @tower.state.capitalize
       td #{@tower.strontium} (#{@tower.reinforced_hours_til_empty} hours)
       td = @tower.fuel_blocks
-      td = @tower.hours_til_empty
+      td == @tower.time_til_empty
 
 h2 Pilots
 

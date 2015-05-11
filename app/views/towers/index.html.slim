@@ -17,7 +17,7 @@ table
       th State
       th Strontium
       th Fuel Blocks
-      th Hours til empty
+      th Time til empty
   tbody
     - @towers.each do |tower|
       tr class="#{tower.state} #{(tower.online? && tower.hours_til_empty <= 168) ? 'one-week' : ''}"
@@ -27,9 +27,9 @@ table
         td = tower.state.capitalize
         td #{tower.strontium} (#{tower.reinforced_hours_til_empty} hours)
         td = tower.fuel_blocks
-        td = tower.hours_til_empty
+        td == tower.time_til_empty
 
 
 p Since the data is cached, the amount of fuel blocks displayed for each tower
-  is only as updated as the last API request. The <strong>Hours til
+  is only as updated as the last API request. The <strong>Time til
   empty</strong>, however, takes this time difference into account.

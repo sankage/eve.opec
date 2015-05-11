@@ -56,8 +56,12 @@ class Tower < ActiveRecord::Base
   enum state: [ :unanchored, :offline, :onlining, :reinforced, :online ]
 
   def hours_til_empty
+    ((fuel_blocks.to_f / consumption_rate) - hours_since_update)
+  end
+
+  def time_til_empty
     return "--" unless online?
-    ((fuel_blocks.to_f / consumption_rate) - hours_since_update).round(2)
+    seconds_to_units(hours_til_empty * 3600)
   end
 
   def type
@@ -88,5 +92,14 @@ class Tower < ActiveRecord::Base
 
   def strontium_rate
     STRONTIUM_CONSUMPTION[details[:size]]
+  end
+
+  def seconds_to_units(seconds)
+    '%d&nbsp;days, %d&nbsp;hours, %d&nbsp;minutes' %
+      # the .reverse lets us put the larger units first for readability
+      [24,60,60].reverse.inject([seconds]) {|result, unitsize|
+        result[0,0] = result.shift.divmod(unitsize)
+        result
+      }
   end
 end
