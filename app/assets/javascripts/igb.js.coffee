@@ -1,10 +1,17 @@
 
 if window.CCPEVE
-  # CCPEVE.requestTrust 'http://*.eve-pospy.com'
-  CCPEVE.requestTrust 'http://localhost:3000'
+  CCPEVE.requestTrust 'http://*.eve-pospy.com'
+  # CCPEVE.requestTrust 'http://localhost:3000'
 
-  subject = "Test"
-  message = "This is a test of an alert system."
+  subject = "[Fuel Alert] for #{$('.tower_name').text()}"
+  message = """
+            Dear Member,
+
+            Your POS is due to run out of fuel in 7 days, please refuel it within 2 days. If you do not have adequate roles to fuel your POS, please ensure you have adequate fuel in your Corp Hangar Array and respond to this mail and I will fuel it for you.
+
+            Best Regards,
+            #{$('.current_user').text()}
+            """
 
   $('[data-character-id]').each ->
     container = $(this)

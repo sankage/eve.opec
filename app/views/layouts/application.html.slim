@@ -12,6 +12,7 @@ html
       nav
         ul
           - if signed_in?
+            li.current_user Logged in as #{current_user.name}
             li = link_to "Towers", towers_path
             li = link_to "Sign out", signout_path
           - else
