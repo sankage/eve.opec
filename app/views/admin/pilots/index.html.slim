@@ -1,0 +1,19 @@
+h1 Pilots
+
+
+table
+  thead
+    th Name
+    th Associated Towers
+    th Admin?
+    th Options
+  tbody
+    - @pilots.each do |pilot|
+      tr
+        td = pilot.name
+        td
+          ul
+            - pilot.towers.each do |tower|
+              li = tower.name
+        td = pilot.admin?
+        td = link_to "toggle admin", toggle_admin_pilot_path(pilot.character_id), method: :patch
