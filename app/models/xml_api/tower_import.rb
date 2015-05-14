@@ -9,6 +9,8 @@ module XmlApi
     def execute
       starbases.map do |pos|
         tower = find_or_initialize_tower(pos)
+        no_name = ->{ OpenStruct.new(itemName: '<not set>') }
+        tower.name = tower_names.detect(no_name) { |p| p.itemID.to_i == pos.itemID.to_i }.itemName
         tower.moon = find_or_create_moon(pos) if tower.moon.nil?
 
         tower = add_fuel_to(tower)
@@ -38,7 +40,6 @@ module XmlApi
       Tower.where(item_id: pos.itemID.to_i).first_or_initialize do |t|
         t.type_id = pos.typeID.to_i
         t.state = pos.state.to_i
-        t.name = tower_names.detect(->{ OpenStruct.new(itemName: '<not set>') }) { |p| p.itemID.to_i == pos.itemID.to_i }.itemName
       end
     end
 
