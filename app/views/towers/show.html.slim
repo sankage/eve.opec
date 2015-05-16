@@ -18,7 +18,7 @@ table
       td = @tower.state.capitalize
       td #{@tower.strontium} (#{@tower.reinforced_hours_til_empty} hours)
       td = @tower.fuel_blocks
-      td == @tower.time_til_empty
+      td.time_til_empty == @tower.time_til_empty
 
 h2 Pilots
 
