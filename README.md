@@ -9,6 +9,6 @@
   $ su postgres
   $ cd
   $ wget https://www.fuzzwork.co.uk/dump/postgres-latest.dmp.bz2
-  $ bzip2 -d postgres-latest.dmp.bz2
-  $ pg_restore -d eve_static_data postgres-latest.dmp
+  $ bzip2 -f -d postgres-latest.dmp.bz2
+  $ pg_restore -c -d eve_static_data postgres-latest.dmp
   ```
