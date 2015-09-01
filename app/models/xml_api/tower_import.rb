@@ -14,7 +14,7 @@ module XmlApi
     private
 
     def remove_old_towers
-      starbase_item_ids = starbases.map(&:itemID)
+      starbase_item_ids = starbases.map(&:itemID).map(&:to_i)
       existing_tower_ids = Tower.pluck(:item_id)
       removed_tower_ids = existing_tower_ids - starbase_item_ids
       Tower.where(item_id: removed_tower_ids).destroy_all
