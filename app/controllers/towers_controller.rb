@@ -8,11 +8,7 @@ class TowersController < ApplicationController
     else
       @towers = current_user.towers.includes(:moon).order(state: :desc, name: :asc)
     end
-  end
-
-  def import
-    TowerImportJob.perform_later
-    redirect_to towers_path
+    @last_update = Tower.order(updated_at: :desc).limit(1).pluck(:updated_at).first
   end
 
   def show

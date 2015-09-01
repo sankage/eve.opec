@@ -5,6 +5,8 @@ class ApplicationController < ActionController::Base
 
   include SessionsHelper
 
+  before_action :refresh_towers
+
   private
 
   def signed_in_user
@@ -18,6 +20,13 @@ class ApplicationController < ActionController::Base
     unless signed_in_as_admin?
       flash[:danger] = "Unavailable action."
       redirect_to tower_path
+    end
+  end
+
+  def refresh_towers
+    last_update = Tower.order(updated_at: :desc).limit(1).pluck(:updated_at).first
+    if last_update < 1.hour.ago
+      TowerImportJob.perform_later
     end
   end
 end
