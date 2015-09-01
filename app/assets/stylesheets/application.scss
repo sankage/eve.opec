@@ -6,7 +6,9 @@ header {
   @include outer-container;
   h1 {
     font-size: 2em;
+    margin-bottom: 0;
   }
+  margin-bottom: 2em;
 }
 section {
   @include outer-container;
@@ -43,5 +45,22 @@ button{
   }
   &.smaller {
     font-size: 0.8em;
+  }
+}
+
+.inline {
+  li {
+    display: inline-block;
+    margin-right: 1em;
+    &:before {
+      content: "•";
+      padding-right: 1em;
+    }
+    &:first-child {
+      &:before {
+        content: "";
+        padding-right: 0;
+      }
+    }
   }
 }

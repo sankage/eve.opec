@@ -10,7 +10,7 @@ html
     header
       h1 Office of POS Electricity Consumption
       nav
-        ul
+        ul.inline
           - if signed_in?
             li.current_user Logged in as #{current_user.name}
             li = link_to "Towers", towers_path
