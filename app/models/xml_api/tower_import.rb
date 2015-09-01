@@ -7,6 +7,20 @@ module XmlApi
     end
 
     def execute
+      remove_old_towers
+      add_or_update_towers
+    end
+
+    private
+
+    def remove_old_towers
+      starbase_item_ids = starbases.map(&:itemID)
+      existing_tower_ids = Tower.pluck(:item_id)
+      removed_tower_ids = existing_tower_ids - starbase_item_ids
+      Tower.where(item_id: removed_tower_ids).destroy_all
+    end
+
+    def add_or_update_towers
       starbases.map do |pos|
         tower = find_or_initialize_tower(pos)
         no_name = ->{ OpenStruct.new(itemName: '<not set>') }
@@ -18,8 +32,6 @@ module XmlApi
         tower.save!
       end
     end
-
-    private
 
     def starbases
       @starbases ||= begin
