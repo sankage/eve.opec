@@ -56,7 +56,14 @@ class Tower < ActiveRecord::Base
   enum state: [ :unanchored, :offline, :onlining, :reinforced, :online ]
 
   def hours_til_empty
-    ((fuel_blocks.to_f / consumption_rate) - hours_since_update)
+    charter_time = 1440 # 60 days * 24 hours / day
+    charter_time = (charters.to_f - hours_since_update) if charters != nil
+    fuel_block_time = ((fuel_blocks.to_f / consumption_rate) - hours_since_update)
+    if charter_time > fuel_block_time
+      fuel_block_time
+    else
+      charter_time
+    end
   end
 
   def time_til_empty
@@ -97,7 +104,7 @@ class Tower < ActiveRecord::Base
   def seconds_to_units(seconds)
     '%d&nbsp;days, %d&nbsp;hours, %d&nbsp;minutes' %
       # the .reverse lets us put the larger units first for readability
-      [24,60,60].reverse.inject([seconds]) {|result, unitsize|
+      [24,60,60].reverse.inject([seconds]) { |result, unitsize|
         result[0,0] = result.shift.divmod(unitsize)
         result
       }

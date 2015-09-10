@@ -2,10 +2,6 @@ require "eaal"
 
 module XmlApi
   class TowerImport
-
-    def initialize
-    end
-
     def execute
       remove_old_towers
       add_or_update_towers
@@ -74,6 +70,9 @@ module XmlApi
         # 16275 is the itemID for Strontium Clathrates
         if fuel.typeID.to_i == 16275
           tower.strontium = fuel.quantity
+        # these ids are for starbase charters
+        elsif [24592, 24593, 24594, 24595, 24596, 24597].include? fuel.typeID.to_i
+          tower.charters = fuel.quantity
         else
           tower.fuel_blocks = fuel.quantity
         end
