@@ -11,21 +11,27 @@ table
       th Type
       th Location
       th State
+      th Secure
       th Strontium
       th Fuel Blocks
       th.sortable Time til empty
   tbody
     - @towers.each do |tower|
-      tr class="#{tower.state} #{(tower.online? && tower.hours_til_empty <= 168) ? 'one-week' : ''}"
+      tr class="#{tower.state}\
+                #{(tower.online? && tower.hours_til_empty <= 168) ?\
+                  'one-week' : ''}\
+                #{!tower.secure? ? 'insecure' : ''}"
         td = link_to tower.name, tower_path(tower.item_id)
         td = tower.type
         td = tower.moon.name
         td = tower.state.capitalize
+        td = tower.secure? ? "Secure" : "Insecure"
         td #{tower.strontium} (#{tower.reinforced_hours_til_empty} hours)
         td = tower.fuel_blocks
         td = simple_format tower.time_til_empty
 
-
+p For High Sec towers, <strong>Time til empty</strong> will account for charters
+  as well.
 p Since the data is cached, the amount of fuel blocks displayed for each tower
   is only as updated as the last API request. The <strong>Time til
   empty</strong>, however, takes this time difference into account.

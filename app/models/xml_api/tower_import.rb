@@ -7,7 +7,7 @@ module XmlApi
       add_or_update_towers
     end
 
-    private
+    #private
 
     def remove_old_towers
       starbase_item_ids = starbases.map(&:itemID).map(&:to_i)
@@ -23,7 +23,10 @@ module XmlApi
         tower.name = tower_names.detect(no_name) { |p| p.itemID.to_i == pos.itemID.to_i }.itemName
         tower.moon = find_or_create_moon(pos) if tower.moon.nil?
         tower.state = pos.state.to_i
-        tower = add_fuel_to(tower)
+        details = tower_api_details(tower.item_id)
+        tower.secure = details.generalSettings.allowCorporationMembers.to_i == 0 &&
+                       details.generalSettings.allowAllianceMembers.to_i == 0
+        tower = add_fuel_to(tower, details.fuel)
 
         tower.save!
       end
@@ -64,9 +67,13 @@ module XmlApi
       end
     end
 
-    def add_fuel_to(tower)
-      details = api.StarbaseDetail(itemID: tower.item_id)
-      details.fuel.each do |fuel|
+    def tower_api_details(tower_id)
+      @details ||= {}
+      @details[tower_id] ||= api.StarbaseDetail(itemID: tower_id)
+    end
+
+    def add_fuel_to(tower, fuel_objects)
+      fuel_objects.each do |fuel|
         # 16275 is the itemID for Strontium Clathrates
         if fuel.typeID.to_i == 16275
           tower.strontium = fuel.quantity

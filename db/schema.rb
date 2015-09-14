@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20150910140137) do
+ActiveRecord::Schema.define(version: 20150914194037) do
 
   create_table "moons", force: :cascade do |t|
     t.integer  "item_id"
@@ -58,9 +58,10 @@ ActiveRecord::Schema.define(version: 20150910140137) do
     t.integer  "fuel_blocks"
     t.integer  "strontium"
     t.integer  "moon_id"
-    t.datetime "created_at",            null: false
-    t.datetime "updated_at",            null: false
+    t.datetime "created_at",                            null: false
+    t.datetime "updated_at",                            null: false
     t.integer  "charters"
+    t.boolean  "secure",                default: false
   end
 
   add_index "towers", ["moon_id"], name: "index_towers_on_moon_id"

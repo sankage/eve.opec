@@ -33,6 +33,9 @@ tr {
   &.reinforced {
     background-color: #ffdce1;
   }
+  &.online.insecure {
+    background-color: #fdc1c3;
+  }
 }
 
 button{
