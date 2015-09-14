@@ -16,4 +16,6 @@ table
             - pilot.towers.each do |tower|
               li = tower.name
         td = pilot.admin?
-        td = link_to "toggle admin", toggle_admin_pilot_path(pilot.character_id), method: :patch
+        td = link_to (pilot.admin? ? "demote" : "promote to admin"), \
+                     toggle_admin_pilot_path(pilot.character_id), \
+                     method: :patch
