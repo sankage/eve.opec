@@ -7,13 +7,12 @@ p Last update: #{time_ago_in_words(@last_update)} ago
 table
   thead
     tr
-      th Name
-      th Type
+      th Name/Type
       th Location
       th State
-      th Secure
       th Strontium
       th Fuel Blocks
+      th Pilots
       th.sortable Time til empty
   tbody
     - @towers.each do |tower|
@@ -21,13 +20,26 @@ table
                 #{(tower.online? && tower.hours_til_empty <= 168) ?\
                   'one-week' : ''}\
                 #{!tower.secure? ? 'insecure' : ''}"
-        td = link_to tower.name, tower_path(tower.item_id)
-        td = tower.type
-        td = tower.moon.name
-        td = tower.state.capitalize
-        td = tower.secure? ? "Secure" : "Insecure"
+        td
+          = link_to tower.name, tower_path(tower.item_id)
+          - if tower.name != tower.type
+            br
+            = tower.type
+        td
+          - name_parts = tower.moon.name.split(' - ')
+          = name_parts[0]
+          br
+          = name_parts[1]
+        td
+          = tower.state.capitalize
+          br
+          = tower.secure? ? "Secure" : "Insecure"
         td #{tower.strontium} (#{tower.reinforced_hours_til_empty} hours)
         td = tower.fuel_blocks
+        td
+          ul
+            - tower.pilots.each do |pilot|
+              li = pilot.name
         td = simple_format tower.time_til_empty
 
 p For High Sec towers, <strong>Time til empty</strong> will account for charters

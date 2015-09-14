@@ -4,9 +4,10 @@ class TowersController < ApplicationController
 
   def index
     if signed_in_as_admin?
-      @towers = Tower.includes(:moon).order(state: :desc, name: :asc)
+      @towers = Tower.includes(:moon, :pilots).order(state: :desc, name: :asc)
     else
-      @towers = current_user.towers.includes(:moon).order(state: :desc, name: :asc)
+      @towers = current_user.towers.includes(:moon, :pilots).
+                             order(state: :desc, name: :asc)
     end
     @last_update = Tower.order(updated_at: :desc).limit(1).pluck(:updated_at).first
   end
