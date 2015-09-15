@@ -15,6 +15,11 @@ class Notifier
     end
   end
 
+  def tower_state_change(previous, current, tower)
+    return if previous == current
+    send_state_change_alert(tower, previous, current)
+  end
+
   private
 
   def send_fuel_alert(tower)
@@ -28,6 +33,13 @@ class Notifier
     notifier.ping "<!group>", channel: '#pospy-council', attachments: attachment(
       title: 'Security Warning',
        text: "#{tower.name} is currently not secure!"
+    )
+  end
+
+  def send_state_change_alert(tower, previous, current)
+    notifier.ping "<!group>", channel: '#pospy-council', attachments: attachment(
+      title: 'Tower State Change',
+       text: "#{tower.name} has changed state from #{previous} to #{current}."
     )
   end
 

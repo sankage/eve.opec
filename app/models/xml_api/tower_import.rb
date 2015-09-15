@@ -28,6 +28,7 @@ module XmlApi
         no_name = ->{ OpenStruct.new(itemName: '<not set>') }
         tower.name = tower_names.detect(no_name) { |p| p.itemID.to_i == pos.itemID.to_i }.itemName
         tower.moon = find_or_create_moon(pos) if tower.moon.nil?
+        previous_state = tower.state
         tower.state = pos.state.to_i
         details = tower_api_details(tower.item_id)
         tower.secure = details.generalSettings.allowCorporationMembers.to_i == 0 &&
@@ -36,8 +37,9 @@ module XmlApi
 
         tower.save!
 
+        notifier.tower_state_change(previous_state, tower.state, tower)
         notifier.check_for_notification(tower)
-
+        tower
       end
     end
 
