@@ -2,12 +2,18 @@ require "eaal"
 
 module XmlApi
   class TowerImport
+    attr_reader :notifier
+
+    def initialize(notifier: Notifier.new)
+      @notifier = notifier
+    end
+
     def execute
       remove_old_towers
       add_or_update_towers
     end
 
-    #private
+    private
 
     def remove_old_towers
       starbase_item_ids = starbases.map(&:itemID).map(&:to_i)
@@ -29,6 +35,9 @@ module XmlApi
         tower = add_fuel_to(tower, details.fuel)
 
         tower.save!
+
+        notifier.check_for_notification(tower)
+
       end
     end
 

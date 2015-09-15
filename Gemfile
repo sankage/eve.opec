@@ -70,3 +70,4 @@ gem 'sucker_punch'
 gem 'high_voltage', '~> 2.3.0'
 gem "eaal"
 gem 'omniauth-evesso', github: 'sankage/omniauth-evesso'
+gem 'slack-notifier'
