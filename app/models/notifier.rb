@@ -11,6 +11,7 @@ class Notifier
     end
 
     if tower.online? && !tower.secure?
+      return if [1014072219871].include?(tower.item_id)
       send_insecure_alert(tower)
     end
   end
