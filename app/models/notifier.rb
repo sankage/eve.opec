@@ -24,24 +24,29 @@ class Notifier
   private
 
   def send_fuel_alert(tower)
-    notifier.ping "", channel: '#pospy-private', attachments: attachment(
-      title: 'Fuel Alert',
-       text: "#{tower.name} is running low on fuel. #{tower.pilots.pluck(:name).to_sentence}: please refuel it soon."
-    )
+    notifier.ping "", channel: '#pospy-private',
+      attachments: attachment(
+        title: 'Fuel Alert',
+         text: "#{tower.name} is running low on fuel. #{tower.pilots.pluck(:name).to_sentence}: please refuel it soon."
+      )
   end
 
   def send_insecure_alert(tower)
-    notifier.ping "<!group>", channel: '#pospy-council', attachments: attachment(
-      title: 'Security Warning',
-       text: "#{tower.name} is currently not secure!"
-    )
+    notifier.ping "<!group> #{tower.name}: is not secure!",
+      channel: '#pospy-council',
+      attachments: attachment(
+        title: 'Security Warning',
+         text: "#{tower.name} is currently not secure! It currently allows more access then it should."
+      )
   end
 
   def send_state_change_alert(tower, previous, current)
-    notifier.ping "<!group>", channel: '#pospy-council', attachments: attachment(
-      title: 'Tower State Change',
-       text: "#{tower.name} has changed state from #{previous} to #{current}."
-    )
+    notifier.ping "<!group> #{tower.name}: status change",
+      channel: '#pospy-council',
+      attachments: attachment(
+        title: 'Tower State Change',
+         text: "#{tower.name} has changed state from #{previous} to #{current}."
+      )
   end
 
   def attachment(title:, text:)
