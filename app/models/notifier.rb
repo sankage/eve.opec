@@ -11,7 +11,7 @@ class Notifier
     end
 
     if tower.online? && !tower.secure?
-      return if [1014072219871].include?(tower.item_id)
+      return if excluded_towers.include?(tower.item_id)
       send_insecure_alert(tower)
     end
   end
@@ -23,8 +23,20 @@ class Notifier
 
   private
 
+  def excluded_towers
+    Rails.application.secrets.excluded_towers.map(&:to_i)
+  end
+
+  def admin_channel
+    Rails.application.secrets.slack_admin_channel || general_channel
+  end
+
+  def general_channel
+    Rails.application.secrets._slack_general_channel
+  end
+
   def send_fuel_alert(tower)
-    notifier.ping "", channel: '#pospy-private',
+    notifier.ping "", channel: general_channel,
       attachments: attachment(
         title: 'Fuel Alert',
          text: "#{tower.name} is running low on fuel. #{tower.pilots.pluck(:name).to_sentence}: please refuel it soon."
@@ -33,7 +45,7 @@ class Notifier
 
   def send_insecure_alert(tower)
     notifier.ping "<!group> #{tower.name}: is not secure!",
-      channel: '#pospy-council',
+      channel: admin_channel,
       attachments: attachment(
         title: 'Security Warning',
          text: "#{tower.name} is currently not secure! It currently allows more access then it should."
@@ -42,7 +54,7 @@ class Notifier
 
   def send_state_change_alert(tower, previous, current)
     notifier.ping "<!group> #{tower.name}: status change",
-      channel: '#pospy-council',
+      channel: admin_channel,
       attachments: attachment(
         title: 'Tower State Change',
          text: "#{tower.name} has changed state from #{previous} to #{current}."
