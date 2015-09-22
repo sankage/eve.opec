@@ -4,6 +4,7 @@ source 'https://rubygems.org'
 # Bundle edge Rails instead: gem 'rails', github: 'rails/rails'
 gem 'rails', '4.2.4'
 
+gem 'pg'
 # Use SCSS for stylesheets
 gem 'sass-rails', '~> 5.0'
 # Use Uglifier as compressor for JavaScript assets
@@ -39,14 +40,9 @@ end
 group :production do
   # See https://github.com/sstephenson/execjs#readme for more supported runtimes
   gem 'therubyracer', platforms: :ruby
-
-  gem 'pg'
 end
 
 group :development, :test do
-  # Use sqlite3 as the database for Active Record
-  gem 'sqlite3'
-
   # Call 'byebug' anywhere in the code to stop execution and get a debugger console
   gem 'byebug'
   gem 'bundler-audit', require: false
@@ -72,3 +68,4 @@ gem 'high_voltage', '~> 2.3.0'
 gem "eaal"
 gem 'omniauth-evesso', github: 'sankage/omniauth-evesso'
 gem 'slack-notifier'
+gem 'progressbar'

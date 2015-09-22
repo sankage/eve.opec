@@ -99,17 +99,20 @@ module XmlApi
     end
 
     def static_map_lookup_name(id)
-      denormalized_lookup(id).itemName
+      denormalized_lookup(id).item_name
     end
 
     def static_moon_info(id)
       result = denormalized_lookup(id)
-      { name: result.itemName, planet: result.celestialIndex, orbit: result.orbitIndex }
+      {
+          name: result.item_name,
+        planet: result.celestial_index,
+         orbit: result.orbit_index
+      }
     end
 
     def denormalized_lookup(id)
-      # SELECT * FROM mapDenormalize WHERE mapDenormalize.itemID = 30000125
-      Static::MapDenormalize.find_by(itemID: id)
+      Static::MapDenormalize.find_by(item_id: id)
     end
 
     def api
