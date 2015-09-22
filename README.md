@@ -17,7 +17,7 @@ There are currently 3 kinds of alerts that OPEC can send.
   Reinforced, Online
 
 
-## Usage
+## Setup
 
 Set environment variables for various settings:
 
@@ -33,24 +33,31 @@ Set environment variables for various settings:
 * `EXCLUDED_TOWERS` – This is an array of tower itemIDs that should not alert
   you for security issues (ie a general alliance/corp tower)
 * `SLACK_ADMIN_CHANNEL` – This is the name of the channel/group that you would
-  like Security and Status Change alerts to be sent to.
+  like Security and Status Change alerts to be sent to. __NOTE:__ You must
+  double wrap the channel in quotes when setting the env variable (ie
+  "'#channel'").
 * `SLACK_GENERAL_CHANNEL` – This is the name of the channel/group that you would
-  like general Fuel alerts to be sent to.
+  like general Fuel alerts to be sent to. __NOTE:__ You must double wrap the
+  channel in quotes when setting the env variable (ie "'#channel'")
 
+Perform initial tower and member import:
+
+```bash
+heroku run rake tower_import
+```
+
+Promote your user to admin:
+
+```bash
+heroku run console
+```
+
+```ruby
+Pilot.find_by(name: 'pilotname').toggle!(:admin)
+```
 
 ## SDD Update
 
-* Login to server
-* perform these commands
-
-  ```bash
-  $ su postgres
-  $ cd
-  $ wget https://www.fuzzwork.co.uk/dump/postgres-latest.dmp.bz2
-  $ bzip2 -f -d postgres-latest.dmp.bz2
-  $ pg_restore --clean \
-               --username=eve \
-               --host=127.0.0.1 \
-               --dbname=eve_static_data \
-               postgres-latest.dmp
-  ```
+```bash
+heroku run rake sdd_update
+```
