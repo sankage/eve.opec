@@ -40,6 +40,12 @@ Set environment variables for various settings:
   like general Fuel alerts to be sent to. __NOTE:__ You must double wrap the
   channel in quotes when setting the env variable (ie "'#channel'")
 
+Pull in SDD mapDenormalize data
+
+```bash
+heroku run rake sdd_update
+```
+
 Perform initial tower and member import:
 
 ```bash
