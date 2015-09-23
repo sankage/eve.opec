@@ -8,12 +8,12 @@ table
   thead
     tr
       th Name/Type
-      th Location
+      th.sortable.location Location
       th State
       th Strontium
       th Fuel Blocks
       th Pilots
-      th.sortable Time til empty
+      th.sortable.time Time til empty
   tbody
     - @towers.each do |tower|
       tr class="#{tower.state}\
