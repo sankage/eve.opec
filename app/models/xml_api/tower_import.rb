@@ -58,7 +58,8 @@ module XmlApi
     end
 
     def find_or_initialize_tower(pos)
-      Tower.where(item_id: pos.itemID.to_i).first_or_initialize do |t|
+      pos_id = pos.itemID.to_i
+      Tower.includes(:moon).where(item_id: pos_id).first_or_initialize do |t|
         t.type_id = pos.typeID.to_i
       end
     end

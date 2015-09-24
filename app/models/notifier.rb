@@ -57,7 +57,7 @@ class Notifier
       channel: admin_channel,
       attachments: attachment(
         title: 'Tower State Change',
-         text: "#{tower.name} has changed state from #{previous} to #{current}."
+        text: "#{tower.name} has changed state from #{previous} to #{current}.\nLocated at #{tower.moon.name}"
       )
   end
 
