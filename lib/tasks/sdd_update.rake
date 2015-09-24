@@ -1,5 +1,4 @@
 # https://www.fuzzwork.co.uk/dump/latest/mapDenormalize.sql.bz3
-require 'csv'
 require 'progressbar'
 
 desc "import mapDenormalize table"
