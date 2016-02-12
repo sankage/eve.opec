@@ -10,8 +10,7 @@ class Notifier
       send_fuel_alert(tower)
     end
 
-    if tower.online? && !tower.secure?
-      return if excluded_towers.include?(tower.item_id)
+    if tower.online? && !tower.secure? && !tower.excluded?
       send_insecure_alert(tower)
     end
   end
@@ -22,10 +21,6 @@ class Notifier
   end
 
   private
-
-  def excluded_towers
-    Rails.application.secrets.excluded_towers.map(&:to_i)
-  end
 
   def admin_channel
     Rails.application.secrets.slack_admin_channel || general_channel

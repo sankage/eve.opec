@@ -1,6 +1,6 @@
 class TowersController < ApplicationController
   before_action :signed_in_user, only: [:index, :show]
-  before_action :admin_user, only: [:import]
+  before_action :admin_user, only: [:import, :update]
 
   def index
     if signed_in_as_admin?
@@ -20,5 +20,21 @@ class TowersController < ApplicationController
     end
     @pilots = Pilot.order(:name)
     @tower_stake = TowerStake.new
+  end
+
+  def update
+    @tower = Tower.find_by(id: params[:id])
+    if @tower.update(exclusion_params)
+      flash[:notice] = "Exclusion status has been updated."
+    else
+      flash[:alert] = "Exclusion status was not updated."
+    end
+    redirect_to tower_path(@tower.item_id)
+  end
+
+  private
+
+  def exclusion_params
+    params.require(:tower).permit(:excluded)
   end
 end

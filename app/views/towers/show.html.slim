@@ -43,3 +43,8 @@ div.right
         - @pilots.each do |pilot|
           option value=pilot.name
       = f.button :submit, "Add Pilot"
+
+    h3 Set excluded to alerts
+    = simple_form_for @tower do |f|
+      = f.input :excluded
+      = f.button :submit

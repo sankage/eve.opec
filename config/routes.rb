@@ -1,5 +1,5 @@
 Rails.application.routes.draw do
-  resources :towers, only: [:index, :show] do
+  resources :towers, only: [:index, :show, :update] do
     resources :tower_stakes, only: [:create, :destroy]
   end
 
