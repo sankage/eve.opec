@@ -27,7 +27,7 @@ class Notifier
   end
 
   def general_channel
-    Rails.application.secrets._slack_general_channel
+    Rails.application.secrets.slack_general_channel
   end
 
   def send_fuel_alert(tower)
